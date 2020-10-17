@@ -21,9 +21,7 @@ const Page = ({ location }) => {
   return (
     <MaxWidthContainer>
       <PageContainer>
-        <Title>
-          {currentPage} {pageMode}
-        </Title>
+        <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
 
         <DesktopActionButtons
           togglePageMode={togglePageMode}
@@ -32,7 +30,7 @@ const Page = ({ location }) => {
 
         <MobileTogglePageMode>
           <MobilePageModeButton>Shopping Items</MobilePageModeButton>
-          <MobilePageModeButton>Stores</MobilePageModeButton>
+          <MobilePageModeButton>Online Stores</MobilePageModeButton>
         </MobileTogglePageMode>
 
         <MobileCurrencyHandler>
