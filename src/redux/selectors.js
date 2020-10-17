@@ -1,4 +1,13 @@
+import { createSelector } from "reselect";
+
 export const boughtItemsSelector = (state) => state.boughtItems;
 export const currentCurrencySelector = (state) => state.currentCurrency;
 export const onlineStoresSelector = (state) => state.onlineStores;
-export const receivedItemsSelector = (state) => state.receivedItems;
+const receivedItemsIdsSelector = (state) => state.receivedItems;
+
+export const receivedItemsSelector = createSelector(
+  receivedItemsIdsSelector,
+  boughtItemsSelector,
+  (receivedItemsIds, boughtItems) =>
+    receivedItemsIds.map((id) => boughtItems[id])
+);
