@@ -7,16 +7,23 @@ import {
   boughtItemsSelector,
   onlineStoresSelector,
   receivedItemsSelector,
+  sumOrdersByStoreSelector,
 } from "../redux/selectors";
 
 import theme, { SMALL_SCREEN } from "../theme";
 
 import { ListCell } from "./commonStyled";
 
-const List = ({ pageMode, boughtItems, onlineStores, receivedItems }) => {
+const List = ({
+  pageMode,
+  boughtItems,
+  onlineStores,
+  receivedItems,
+  sumOrdersByStore,
+}) => {
   const { pathname: currentPage } = useLocation();
 
-  const listItemsByType = { boughtItems, onlineStores, receivedItems };
+  const listItemsByType = { boughtItems, receivedItems, sumOrdersByStore };
   const currentListItemsType = getListItemsType({ currentPage, pageMode });
 
   const renderShoppingItem = ({
@@ -34,17 +41,17 @@ const List = ({ pageMode, boughtItems, onlineStores, receivedItems }) => {
     </ListItem>
   );
 
-  const renderOnlineStore = ({ id, name }) => (
+  const renderOnlineStore = ({ id, sumOrders }) => (
     <ListItem key={id}>
-      <ListCell pageMode="onlineStores">{name}</ListCell>
-      <ListCell pageMode="onlineStores">Calculated</ListCell>
+      <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
+      <ListCell pageMode="onlineStores">{sumOrders}</ListCell>
     </ListItem>
   );
 
   return (
     <div>
       {Object.values(listItemsByType[currentListItemsType]).map(
-        currentListItemsType === "onlineStores"
+        currentListItemsType === "sumOrdersByStore"
           ? renderOnlineStore
           : renderShoppingItem
       )}
@@ -73,13 +80,14 @@ const getListItemsType = ({ currentPage, pageMode }) => {
     return "boughtItems";
   }
 
-  return "onlineStores";
+  return "sumOrdersByStore";
 };
 
 const mapStateToProps = (state) => ({
   boughtItems: boughtItemsSelector(state),
   onlineStores: onlineStoresSelector(state),
   receivedItems: receivedItemsSelector(state),
+  sumOrdersByStore: sumOrdersByStoreSelector(state),
 });
 
 export default connect(mapStateToProps)(List);
