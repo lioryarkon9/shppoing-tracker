@@ -1,7 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import {
   boughtItemsSelector,
@@ -10,9 +9,8 @@ import {
   sumOrdersByStoreSelector,
 } from "../redux/selectors";
 
-import theme, { SMALL_SCREEN } from "../theme";
-
-import { ListCell } from "./commonStyled";
+import { ListCell, ListItem } from "./commonStyled";
+import AddShoppingItemWidget from "./AddShoppingItemWidget";
 
 const List = ({
   pageMode,
@@ -20,6 +18,7 @@ const List = ({
   onlineStores,
   receivedItems,
   sumOrdersByStore,
+  isAddingShoppingItem,
 }) => {
   const { pathname: currentPage } = useLocation();
 
@@ -50,6 +49,8 @@ const List = ({
 
   return (
     <div>
+      {isAddingShoppingItem && <AddShoppingItemWidget />}
+
       {Object.values(listItemsByType[currentListItemsType]).map(
         currentListItemsType === "sumOrdersByStore"
           ? renderOnlineStore
@@ -58,18 +59,6 @@ const List = ({
     </div>
   );
 };
-
-const ListItem = styled.div`
-  display: flex;
-
-  @media ${SMALL_SCREEN} {
-    flex-wrap: wrap;
-    box-shadow: 0 0 2px 0;
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: ${theme.borderRadius};
-  }
-`;
 
 const getListItemsType = ({ currentPage, pageMode }) => {
   if (currentPage === "/received") {

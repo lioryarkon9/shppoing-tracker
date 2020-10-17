@@ -11,11 +11,23 @@ const Page = ({ location }) => {
   const { pathname: currentPage } = location;
   const [pageMode, setPageMode] = useState("shoppingItems");
 
+  const [isAddingShoppingItem, setIsAddingShoppingItem] = useState(false);
+
   const togglePageMode = () => {
     const newPageMode =
       pageMode === "shoppingItems" ? "onlineStores" : "shoppingItems";
 
     setPageMode(newPageMode);
+  };
+
+  const onClickAddItemButton = () => {
+    if (isAddingShoppingItem) {
+      setIsAddingShoppingItem(false);
+
+      return;
+    }
+
+    setIsAddingShoppingItem(true);
   };
 
   return (
@@ -24,7 +36,9 @@ const Page = ({ location }) => {
         <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
 
         <DesktopActionButtons
+          onClickAddItemButton={onClickAddItemButton}
           togglePageMode={togglePageMode}
+          isAddingShoppingItem={isAddingShoppingItem}
           currentPageMode={pageMode}
         />
 
@@ -41,12 +55,17 @@ const Page = ({ location }) => {
 
         <div>
           {pageMode === "shoppingItems" && (
-            <MobileAddItem>
-              <button>ADD ITEM</button>
+            <MobileAddItem onClick={onClickAddItemButton}>
+              <button>
+                {isAddingShoppingItem ? "Cancel" : "Add Shopping Item"}
+              </button>
             </MobileAddItem>
           )}
 
-          <List pageMode={pageMode} />
+          <List
+            pageMode={pageMode}
+            isAddingShoppingItem={isAddingShoppingItem}
+          />
         </div>
       </PageContainer>
     </MaxWidthContainer>
