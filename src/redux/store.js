@@ -1,13 +1,13 @@
 import { createStore, combineReducers } from "redux";
 
 import boughtItems from "./reducers/boughtItems.reducer";
-import currentCurrency from "./reducers/currency.reducer";
+import currency from "./reducers/currency.reducer";
 import onlineStores from "./reducers/onlineStores.reducer";
 import receivedItems from "./reducers/receivedItems.reducer";
 
 const rootReducer = combineReducers({
   boughtItems,
-  currentCurrency,
+  currency,
   onlineStores,
   receivedItems,
 });
