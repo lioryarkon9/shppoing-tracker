@@ -4,32 +4,36 @@ import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
-const DesktopActionButtons = ({ togglePageMode, currentPageMode }) => {
+const DesktopActionButtons = ({
+  togglePageMode,
+  currentPageMode,
+  onClickAddItemButton,
+  isAddingShoppingItem,
+}) => {
   const { pathname: currentPage } = useLocation();
 
   return (
     <Container>
       <BoughtItemAndCurrency>
-        {currentPage === "/bought" && <button>Add Item</button>}
+        {currentPage === "/bought" && (
+          <button onClick={onClickAddItemButton}>
+            {isAddingShoppingItem ? "Cancel" : "Add Item"}
+          </button>
+        )}
         <button>USD</button>
       </BoughtItemAndCurrency>
 
-      {currentPage === "/bought" && (
-        <TogglePageMode>
-          <ItemsButton
-            onClick={togglePageMode}
-            currentPageMode={currentPageMode}
-          >
-            Shopping Items
-          </ItemsButton>
-          <StoresButton
-            onClick={togglePageMode}
-            currentPageMode={currentPageMode}
-          >
-            Online Stores
-          </StoresButton>
-        </TogglePageMode>
-      )}
+      <TogglePageMode>
+        <ItemsButton onClick={togglePageMode} currentPageMode={currentPageMode}>
+          Shopping Items
+        </ItemsButton>
+        <StoresButton
+          onClick={togglePageMode}
+          currentPageMode={currentPageMode}
+        >
+          Online Stores
+        </StoresButton>
+      </TogglePageMode>
     </Container>
   );
 };
