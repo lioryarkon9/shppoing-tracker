@@ -12,7 +12,7 @@ function receivedItems(state = initialState, action) {
     }
 
     case REMOVE_RECEIVED_ITEM: {
-      return state.filter(({ id }) => id !== action.payload.itemId);
+      return state.filter((itemId) => itemId !== action.payload.itemId);
     }
     default:
       return state;

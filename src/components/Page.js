@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import theme, { SMALL_SCREEN } from "../theme";
 
@@ -34,25 +35,21 @@ const Page = ({ location }) => {
     <MaxWidthContainer>
       <PageContainer>
         <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
-
+        <Link to="/received">received</Link> <Link to="/bought">bought</Link>
         <DesktopActionButtons
           onClickAddItemButton={onClickAddItemButton}
           togglePageMode={togglePageMode}
           isAddingShoppingItem={isAddingShoppingItem}
           currentPageMode={pageMode}
         />
-
         <MobileTogglePageMode>
           <MobilePageModeButton>Shopping Items</MobilePageModeButton>
           <MobilePageModeButton>Online Stores</MobilePageModeButton>
         </MobileTogglePageMode>
-
         <MobileCurrencyHandler>
           <button>USD</button>
         </MobileCurrencyHandler>
-
         <DesktopTableHeader pageMode={pageMode} />
-
         <div>
           {pageMode === "shoppingItems" && (
             <MobileAddItem onClick={onClickAddItemButton}>
@@ -65,6 +62,7 @@ const Page = ({ location }) => {
           <List
             pageMode={pageMode}
             isAddingShoppingItem={isAddingShoppingItem}
+            closeAddShoppingItemWidget={onClickAddItemButton}
           />
         </div>
       </PageContainer>

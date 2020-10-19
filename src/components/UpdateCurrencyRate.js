@@ -5,7 +5,7 @@ import { setCurrencyRate } from "../redux/actions/currency.actions";
 
 const UPDATE_FREQUENCY_IN_MILLISECONDS = 10000;
 
-const UpdateCurrencyRate = ({setCurrencyRate}) => {
+const UpdateCurrencyRate = ({ setCurrencyRate }) => {
   useEffect(function updateCurrency() {
     const id = setInterval(() => {
       fetch("https://api.exchangeratesapi.io/latest?base=USD")
