@@ -3,7 +3,7 @@ import {
   SET_CURRENCY_RATE,
 } from "../actions/currency.actions";
 
-const initialState = { id: "usd", rate: 3.3790137126 };
+const initialState = { id: "usd", rate: 3.3 };
 
 function currencyReducer(state = initialState, action) {
   switch (action.type) {

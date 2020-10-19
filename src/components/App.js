@@ -9,10 +9,13 @@ import { Provider } from "react-redux";
 
 import store from "../redux/store";
 
+import UpdateCurrencyRate from "./UpdateCurrencyRate";
 import Page from "./Page";
 
 const App = () => (
   <Provider store={store}>
+    <UpdateCurrencyRate />
+
     <Router>
       <Switch>
         <Route path="/" exact component={() => <Redirect to="/bought" />} />
