@@ -9,19 +9,12 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { SMALL_SCREEN } from "../theme";
 
-import {
-  onlineStoresSelector,
-  currentCurrencySelector,
-} from "../redux/selectors";
+import { onlineStoresSelector, currencySelector } from "../redux/selectors";
 import { setBoughtItem } from "../redux/actions/boughtItems.actions";
 
 import { ListItem, ListCell } from "./commonStyled";
 
-const AddShoppingItemWidget = ({
-  onlineStores,
-  currentCurrency,
-  setBoughtItem,
-}) => {
+const AddShoppingItemWidget = ({ onlineStores, currency, setBoughtItem }) => {
   const [name, setName] = useState("");
   const [onlineStoreId, setOnlineStoreId] = useState("");
   const [price, setPrice] = useState("");
@@ -32,7 +25,7 @@ const AddShoppingItemWidget = ({
       name,
       onlineStoreId,
       price,
-      currencyId: currentCurrency.id,
+      currencyId: currency.id,
       deliveryEstimationDate,
     });
   };
@@ -100,7 +93,7 @@ const Confirm = styled.div`
 
 const mapStateToProps = (state) => ({
   onlineStores: onlineStoresSelector(state),
-  currentCurrency: currentCurrencySelector(state),
+  currency: currencySelector(state),
 });
 
 export default connect(mapStateToProps, { setBoughtItem })(
