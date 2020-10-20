@@ -15,7 +15,7 @@ import {
   addReceivedItem,
 } from "../redux/actions/receivedItems.actions";
 
-import { ShoppingListItem, ShoppingListCell } from "./commonStyled";
+import { ListItem, ListCell } from "./commonStyled";
 
 const ShoppingItem = ({
   id,
@@ -45,14 +45,12 @@ const ShoppingItem = ({
 
   return (
     <div>
-      <ShoppingListItem>
-        <ShoppingListCell>{name}</ShoppingListCell>
-        <ShoppingListCell>{onlineStores[onlineStoreId].name}</ShoppingListCell>
-        <ShoppingListCell>{formatPrice(price)}</ShoppingListCell>
-        <ShoppingListCell>
-          {new Date(deliveryEstimationDate).toDateString()}
-        </ShoppingListCell>
-      </ShoppingListItem>
+      <ListItem>
+        <ListCell>{name}</ListCell>
+        <ListCell>{onlineStores[onlineStoreId].name}</ListCell>
+        <ListCell>{formatPrice(price)}</ListCell>
+        <ListCell>{new Date(deliveryEstimationDate).toDateString()}</ListCell>
+      </ListItem>
 
       <Received>
         <button onClick={() => receivedButtonConfig.action(id)}>

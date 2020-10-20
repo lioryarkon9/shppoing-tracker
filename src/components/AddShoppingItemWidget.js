@@ -12,7 +12,7 @@ import { SMALL_SCREEN } from "../theme";
 import { onlineStoresSelector, currencySelector } from "../redux/selectors";
 import { setBoughtItem } from "../redux/actions/boughtItems.actions";
 
-import { ShoppingListItem, ShoppingListCell } from "./commonStyled";
+import { ListItem, ListCell } from "./commonStyled";
 
 const AddShoppingItemWidget = ({
   onlineStores,
@@ -55,16 +55,16 @@ const AddShoppingItemWidget = ({
   };
 
   return (
-    <>
-      <ShoppingListItem>
-        <ShoppingListCell>
+    <div>
+      <ListItem>
+        <ListCell>
           <input
             value={name}
             onChange={(event) => setName(event.currentTarget.value)}
             placeholder="New Item Name"
           />
-        </ShoppingListCell>
-        <ShoppingListCell>
+        </ListCell>
+        <ListCell>
           <Dropdown
             value={onlineStoreId}
             options={Object.values(onlineStores).map(({ id, name }) => ({
@@ -74,8 +74,8 @@ const AddShoppingItemWidget = ({
             onChange={({ value }) => setOnlineStoreId(value)}
             placeholder="Store bought from"
           />
-        </ShoppingListCell>
-        <ShoppingListCell>
+        </ListCell>
+        <ListCell>
           <input
             type="number"
             value={price}
@@ -84,8 +84,8 @@ const AddShoppingItemWidget = ({
               currency.id === "ils" ? "NIS" : "USD"
             }`}
           />
-        </ShoppingListCell>
-        <ShoppingListCell>
+        </ListCell>
+        <ListCell>
           <DatePicker
             placeholderText="Due to arrive on"
             value={deliveryEstimationDate}
@@ -99,8 +99,8 @@ const AddShoppingItemWidget = ({
             }
             minDate={new Date()}
           />
-        </ShoppingListCell>
-      </ShoppingListItem>
+        </ListCell>
+      </ListItem>
 
       {validationMessage && (
         <ValidationMessage>{validationMessage}</ValidationMessage>
@@ -109,7 +109,7 @@ const AddShoppingItemWidget = ({
       <Confirm>
         <button onClick={confirmShoppingItem}>Confirm</button>
       </Confirm>
-    </>
+    </div>
   );
 };
 

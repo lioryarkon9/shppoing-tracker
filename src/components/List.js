@@ -12,7 +12,7 @@ import {
 
 import { withFormatAndCurrencyPrice, byDeliveryEstimationDate } from "../utils";
 
-import { ShoppingListCell, ShoppingListItem } from "./commonStyled";
+import { ListCell, ListItem } from "./commonStyled";
 import AddShoppingItemWidget from "./AddShoppingItemWidget";
 import ShoppingItem from "./ShoppingItem";
 
@@ -38,14 +38,10 @@ const List = ({
   const formatPrice = withFormatAndCurrencyPrice(currency.id);
 
   const renderOnlineStore = ({ id, sumOrders }) => (
-    <ShoppingListItem key={id}>
-      <ShoppingListCell pageMode="onlineStores">
-        {onlineStores[id].name}
-      </ShoppingListCell>
-      <ShoppingListCell pageMode="onlineStores">
-        {formatPrice(sumOrders)}
-      </ShoppingListCell>
-    </ShoppingListItem>
+    <ListItem key={id}>
+      <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
+      <ListCell pageMode="onlineStores">{formatPrice(sumOrders)}</ListCell>
+    </ListItem>
   );
 
   return (
