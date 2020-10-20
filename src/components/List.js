@@ -1,38 +1,29 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import { connect } from "react-redux";
-import styled from "styled-components";
 
 import {
   boughtItemsWithProperCurrencySelector,
   onlineStoresSelector,
   receivedItemsSelector,
-  receivedItemsIdsSelector,
   sumOrdersByStoreSelector,
   currencySelector,
 } from "../redux/selectors";
 
-import {
-  addReceivedItem,
-  removeReceievedItem,
-} from "../redux/actions/receivedItems.actions";
-
 import { withFormatAndCurrencyPrice, byDeliveryEstimationDate } from "../utils";
 
-import { ListCell, ListItem } from "./commonStyled";
+import { ListCell, ListItem, ListItemContainer } from "./commonStyled";
 import AddShoppingItemWidget from "./AddShoppingItemWidget";
+import ShoppingItem from "./ShoppingItem";
 
 const List = ({
   pageMode,
   boughtItems,
   onlineStores,
   receivedItems,
-  receivedItemsIds,
   sumOrdersByStore,
   isAddingShoppingItem,
   currency,
-  addReceivedItem,
-  removeReceievedItem,
   closeAddShoppingItemWidget,
 }) => {
   const { pathname: currentPage } = useLocation();
@@ -46,67 +37,40 @@ const List = ({
 
   const formatPrice = withFormatAndCurrencyPrice(currency.id);
 
-  const renderShoppingItem = ({
-    id,
-    name,
-    onlineStoreId,
-    price,
-    deliveryEstimationDate,
-  }) => {
-    if (currentPage === "/bought" && receivedItemsIds.includes(id)) {
-      return null;
-    }
-
-    const receivedButtonConfig = {
-      label: receivedItemsIds.includes(id) ? "Un-receive" : "Receive",
-      action: receivedItemsIds.includes(id)
-        ? removeReceievedItem
-        : addReceivedItem,
-    };
-
-    return (
-      <Fragment key={id}>
-        <ListItem>
-          <ListCell>{name}</ListCell>
-          <ListCell>{onlineStores[onlineStoreId].name}</ListCell>
-          <ListCell>{formatPrice(price)}</ListCell>
-          <ListCell>{new Date(deliveryEstimationDate).toDateString()}</ListCell>
-        </ListItem>
-        <Received>
-          <button onClick={() => receivedButtonConfig.action(id)}>
-            {receivedButtonConfig.label}
-          </button>
-        </Received>
-      </Fragment>
-    );
-  };
-
   const renderOnlineStore = ({ id, sumOrders }) => (
-    <ListItem key={id}>
-      <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
-      <ListCell pageMode="onlineStores">{formatPrice(sumOrders)}</ListCell>
-    </ListItem>
+    <ListItemContainer key={id}>
+      <ListItem>
+        <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
+        <ListCell pageMode="onlineStores">{formatPrice(sumOrders)}</ListCell>
+      </ListItem>
+    </ListItemContainer>
   );
 
   return (
     <div>
       {isAddingShoppingItem && (
-        <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
+        <ListItemContainer>
+          <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
+        </ListItemContainer>
       )}
 
       {Object.values(listItemsByType[currentListItemsType]).map(
         currentListItemsType === "sumOrdersByStore"
           ? renderOnlineStore
-          : renderShoppingItem
+          : (shoppingItem) => (
+              <ShoppingItem
+                key={shoppingItem.id}
+                id={shoppingItem.id}
+                name={shoppingItem.name}
+                onlineStoreId={shoppingItem.onlineStoreId}
+                price={shoppingItem.price}
+                deliveryEstimationDate={shoppingItem.deliveryEstimationDate}
+              />
+            )
       )}
     </div>
   );
 };
-
-const Received = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 const getListItemsType = ({ currentPage, pageMode }) => {
   if (currentPage === "/received") {
@@ -124,12 +88,8 @@ const mapStateToProps = (state) => ({
   boughtItems: boughtItemsWithProperCurrencySelector(state),
   onlineStores: onlineStoresSelector(state),
   receivedItems: receivedItemsSelector(state),
-  receivedItemsIds: receivedItemsIdsSelector(state),
   sumOrdersByStore: sumOrdersByStoreSelector(state),
   currency: currencySelector(state),
 });
 
-export default connect(mapStateToProps, {
-  addReceivedItem,
-  removeReceievedItem,
-})(List);
+export default connect(mapStateToProps)(List);

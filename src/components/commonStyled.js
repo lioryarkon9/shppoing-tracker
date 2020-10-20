@@ -10,14 +10,20 @@ export const ListCell = styled.div`
   }
 `;
 
+export const ListItemContainer = styled.div`
+  box-shadow: 0 0 2px 0;
+  margin-top: 5px;
+  padding: 5px;
+
+  @media ${SMALL_SCREEN} {
+    border-radius: ${theme.borderRadius};
+  }
+`;
+
 export const ListItem = styled.div`
   display: flex;
 
   @media ${SMALL_SCREEN} {
     flex-wrap: wrap;
-    box-shadow: 0 0 2px 0;
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: ${theme.borderRadius};
   }
 `;
