@@ -3,8 +3,13 @@ const getCurrencyIndicator = (currencyId) =>
 
 const formatPrice = (price) => price.toLocaleString();
 
-export const withFormatAndCurrencyPrice = (currencyId) => (price) =>
-  `${formatPrice(price)} ${getCurrencyIndicator(currencyId)}`;
+export const withFormatAndCurrencyPrice = (currencyId) => (price) => {
+  if (currencyId === "ils") {
+    return `${formatPrice(price)} ${getCurrencyIndicator(currencyId)}`;
+  }
+
+  return `${getCurrencyIndicator(currencyId)}${formatPrice(price)}`;
+}
 
 export const withAppCurrency = ({ appCurrency, exchangeRate }) => ({
   price,
