@@ -25,7 +25,19 @@ const AddShoppingItemWidget = ({
   const [price, setPrice] = useState("");
   const [deliveryEstimationDate, setDeliveryEstimationDate] = useState("");
 
+  const [validationMessage, setValidationMessage] = useState("");
+
   const confirmShoppingItem = () => {
+    setValidationMessage("");
+
+    const shoppingItemValidationMessage = validateShoppingItem({name, onlineStoreId, price, deliveryEstimationDate})
+
+    if (shoppingItemValidationMessage) {
+      setValidationMessage(shoppingItemValidationMessage);
+
+      return;
+    }
+
     setBoughtItem({
       name,
       onlineStoreId,
@@ -85,12 +97,20 @@ const AddShoppingItemWidget = ({
         </ListCell>
       </ListItem>
 
+      <ValidationMessage>{validationMessage}</ValidationMessage>
+
       <Confirm>
         <button onClick={confirmShoppingItem}>Confirm</button>
       </Confirm>
     </>
   );
 };
+
+const ValidationMessage = styled.div`
+  color: red;
+  text-align: center;
+  padding: 5px 0;
+`;
 
 const Confirm = styled.div`
   text-align: center;
@@ -99,6 +119,26 @@ const Confirm = styled.div`
     width: 100%;
   }
 `;
+
+const validateShoppingItem = ({name, onlineStoreId, price, deliveryEstimationDate}) => {
+  if (name.length < 3 || name.length > 20) {
+    return "Name must be between 3 to 20 chars"
+  }
+
+  if (!onlineStoreId) {
+    return "You must choose an online store";
+  }
+
+  if (isNaN(parseInt(price)) || parseInt(price) <= 0) {
+    return "You must enter a positive price value";
+  }
+
+  if (!deliveryEstimationDate) {
+    return "You must choose a delivery estimation date";
+  }
+
+  return "";
+};
 
 const mapStateToProps = (state) => ({
   onlineStores: onlineStoresSelector(state),
