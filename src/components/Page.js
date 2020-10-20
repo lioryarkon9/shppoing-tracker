@@ -6,6 +6,7 @@ import theme, { SMALL_SCREEN } from "../theme";
 
 import DesktopActionButtons from "./DesktopActionButtons";
 import DesktopTableHeader from "./DesktopTableHeader";
+import ToggleCurrencyButton from "./ToggleCurrencyButton";
 import List from "./List";
 
 const Page = ({ location }) => {
@@ -35,21 +36,27 @@ const Page = ({ location }) => {
     <MaxWidthContainer>
       <PageContainer>
         <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
+
         <Link to="/received">received</Link> <Link to="/bought">bought</Link>
+
         <DesktopActionButtons
           onClickAddItemButton={onClickAddItemButton}
           togglePageMode={togglePageMode}
           isAddingShoppingItem={isAddingShoppingItem}
           currentPageMode={pageMode}
         />
+
         <MobileTogglePageMode>
           <MobilePageModeButton>Shopping Items</MobilePageModeButton>
           <MobilePageModeButton>Online Stores</MobilePageModeButton>
         </MobileTogglePageMode>
-        <MobileCurrencyHandler>
-          <button>USD</button>
-        </MobileCurrencyHandler>
+
+        <MobileCurrency>
+          <ToggleCurrencyButton/>
+        </MobileCurrency>
+
         <DesktopTableHeader pageMode={pageMode} />
+
         <div>
           {pageMode === "shoppingItems" && (
             <MobileAddItem onClick={onClickAddItemButton}>
@@ -79,7 +86,7 @@ const MobileAddItem = styled.div`
   }
 `;
 
-const MobileCurrencyHandler = styled.div`
+const MobileCurrency = styled.div`
   display: none;
 
   @media ${SMALL_SCREEN} {

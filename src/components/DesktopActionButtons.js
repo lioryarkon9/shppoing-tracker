@@ -4,11 +4,13 @@ import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
+import ToggleCurrencyButton from "./ToggleCurrencyButton";
+
 const DesktopActionButtons = ({
   togglePageMode,
   currentPageMode,
   onClickAddItemButton,
-  isAddingShoppingItem,
+  isAddingShoppingItem
 }) => {
   const { pathname: currentPage } = useLocation();
 
@@ -20,7 +22,7 @@ const DesktopActionButtons = ({
             {isAddingShoppingItem ? "Cancel" : "Add Item"}
           </button>
         )}
-        <button>USD</button>
+        <ToggleCurrencyButton/>
       </BoughtItemAndCurrency>
 
       <TogglePageMode>
