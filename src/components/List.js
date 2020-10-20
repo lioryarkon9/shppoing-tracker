@@ -48,11 +48,13 @@ const List = ({
 
   return (
     <div>
-      {isAddingShoppingItem && (
-        <ListItemContainer>
-          <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
-        </ListItemContainer>
-      )}
+      {currentPage === "/bought" &&
+        pageMode === "shoppingItems" &&
+        isAddingShoppingItem && (
+          <ListItemContainer>
+            <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
+          </ListItemContainer>
+        )}
 
       {Object.values(listItemsByType[currentListItemsType]).map(
         currentListItemsType === "sumOrdersByStore"
@@ -65,6 +67,7 @@ const List = ({
                 onlineStoreId={shoppingItem.onlineStoreId}
                 price={shoppingItem.price}
                 deliveryEstimationDate={shoppingItem.deliveryEstimationDate}
+                pageMode={pageMode}
               />
             )
       )}

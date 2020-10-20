@@ -18,7 +18,7 @@ const DesktopActionButtons = ({
   return (
     <Container>
       <BoughtItemAndCurrency>
-        {currentPage === "/bought" && (
+        {currentPage === "/bought" && currentPageMode === "shoppingItems" && (
           <button onClick={onClickAddItemButton}>
             {isAddingShoppingItem ? "Cancel" : "Add Item"}
           </button>
@@ -26,12 +26,14 @@ const DesktopActionButtons = ({
         <ToggleCurrency />
       </BoughtItemAndCurrency>
 
-      <TogglePageModeContainer>
-        <TogglePageMode
-          toggleAction={togglePageMode}
-          currentPageMode={currentPageMode}
-        />
-      </TogglePageModeContainer>
+      {currentPage === "/bought" && (
+        <TogglePageModeContainer>
+          <TogglePageMode
+            toggleAction={togglePageMode}
+            currentPageMode={currentPageMode}
+          />
+        </TogglePageModeContainer>
+      )}
     </Container>
   );
 };

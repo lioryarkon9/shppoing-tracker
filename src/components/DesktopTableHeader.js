@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
@@ -11,9 +12,16 @@ const headerCellsByMode = {
 };
 
 const DesktopTableHeader = ({ pageMode }) => {
+  const { pathname: currentPage } = useLocation();
+
+  const headerCells =
+    currentPage === "/received"
+      ? headerCellsByMode.shoppingItems
+      : headerCellsByMode[pageMode];
+
   return (
     <Container>
-      {headerCellsByMode[pageMode].map((headerItem) => (
+      {headerCells.map((headerItem) => (
         <ListCell pageMode={pageMode} key={headerItem}>
           {headerItem}
         </ListCell>

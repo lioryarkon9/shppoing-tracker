@@ -28,6 +28,7 @@ const ShoppingItem = ({
   removeReceievedItem,
   currency,
   onlineStores,
+  pageMode,
 }) => {
   const { pathname: currentPage } = useLocation();
   const isReceived = receivedItemsIds.includes(id);
@@ -52,11 +53,13 @@ const ShoppingItem = ({
         <ListCell>{new Date(deliveryEstimationDate).toDateString()}</ListCell>
       </ListItem>
 
-      <Received>
-        <button onClick={() => receivedButtonConfig.action(id)}>
-          {receivedButtonConfig.label}
-        </button>
-      </Received>
+      {pageMode === "shoppingItems" && (
+        <Received>
+          <button onClick={() => receivedButtonConfig.action(id)}>
+            {receivedButtonConfig.label}
+          </button>
+        </Received>
+      )}
     </ListItemContainer>
   );
 };
