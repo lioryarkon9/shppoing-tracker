@@ -9,7 +9,7 @@ export const withFormatAndCurrencyPrice = (currencyId) => (price) => {
   }
 
   return `${getCurrencyIndicator(currencyId)}${formatPrice(price)}`;
-}
+};
 
 export const withAppCurrency = ({ appCurrency, exchangeRate }) => ({
   price,

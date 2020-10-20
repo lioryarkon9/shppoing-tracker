@@ -63,7 +63,9 @@ const AddShoppingItemWidget = ({
             type="number"
             value={price}
             onChange={(event) => setPrice(event.currentTarget.value)}
-            placeholder={`Item's Price in ${currency.id === "ils" ? "NIS" : "USD"}`}
+            placeholder={`Item's Price in ${
+              currency.id === "ils" ? "NIS" : "USD"
+            }`}
           />
         </ListCell>
         <ListCell>

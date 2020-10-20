@@ -37,42 +37,57 @@ const Page = ({ location }) => {
     <MaxWidthContainer>
       <PageContainer>
         <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
-        <Link to="/received">received</Link> <Link to="/bought">bought</Link>
+
+        <Navigation>
+          Go to{" "}
+          <Link to={getOppositePage(currentPage)}>
+            {getOppositePage(currentPage).slice(1).toUpperCase()}
+          </Link>{" "}
+          page
+        </Navigation>
+
         <DesktopActionButtons
           onClickAddItemButton={onClickAddItemButton}
           togglePageMode={togglePageMode}
           isAddingShoppingItem={isAddingShoppingItem}
           currentPageMode={pageMode}
         />
+
         <MobileTogglePageMode>
           <TogglePageMode
             toggleAction={togglePageMode}
             currentPageMode={pageMode}
           />
         </MobileTogglePageMode>
+
         <MobileCurrency>
           <ToggleCurrency />
         </MobileCurrency>
-        <DesktopTableHeader pageMode={pageMode} />
-        <div>
-          {pageMode === "shoppingItems" && (
-            <MobileAddItem onClick={onClickAddItemButton}>
-              <button>
-                {isAddingShoppingItem ? "Cancel" : "Add Shopping Item"}
-              </button>
-            </MobileAddItem>
-          )}
 
-          <List
-            pageMode={pageMode}
-            isAddingShoppingItem={isAddingShoppingItem}
-            closeAddShoppingItemWidget={onClickAddItemButton}
-          />
-        </div>
+        <DesktopTableHeader pageMode={pageMode} />
+
+        {pageMode === "shoppingItems" && (
+          <MobileAddItem onClick={onClickAddItemButton}>
+            <button>
+              {isAddingShoppingItem ? "Cancel" : "Add Shopping Item"}
+            </button>
+          </MobileAddItem>
+        )}
+
+        <List
+          pageMode={pageMode}
+          isAddingShoppingItem={isAddingShoppingItem}
+          closeAddShoppingItemWidget={onClickAddItemButton}
+        />
       </PageContainer>
     </MaxWidthContainer>
   );
 };
+
+const Navigation = styled.div`
+  text-align: center;
+  padding: 5px 5px 10px;
+`;
 
 const MobileAddItem = styled.div`
   display: none;
@@ -127,5 +142,8 @@ const PageContainer = styled.div`
     min-height: 100vh;
   }
 `;
+
+const getOppositePage = (currentPage) =>
+  currentPage === "/bought" ? "/received" : "/bought";
 
 export default Page;
