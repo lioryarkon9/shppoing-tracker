@@ -17,13 +17,16 @@ const Page = ({ location }) => {
   const [isAddingShoppingItem, setIsAddingShoppingItem] = useState(false);
 
   const togglePageMode = () => {
-    const newPageMode =
-      pageMode === "shoppingItems" ? "onlineStores" : "shoppingItems";
-
-    setPageMode(newPageMode);
+    setPageMode(
+      pageMode === "shoppingItems" ? "onlineStores" : "shoppingItems"
+    );
   };
 
   const onClickAddItemButton = () => {
+    if (currentPage !== "/bought" || pageMode !== "shoppingItems") {
+      return;
+    }
+
     if (isAddingShoppingItem) {
       setIsAddingShoppingItem(false);
 
@@ -53,12 +56,14 @@ const Page = ({ location }) => {
           currentPageMode={pageMode}
         />
 
-        <MobileTogglePageMode>
-          <TogglePageMode
-            toggleAction={togglePageMode}
-            currentPageMode={pageMode}
-          />
-        </MobileTogglePageMode>
+        {currentPage === "/bought" && (
+          <MobileTogglePageMode>
+            <TogglePageMode
+              toggleAction={togglePageMode}
+              currentPageMode={pageMode}
+            />
+          </MobileTogglePageMode>
+        )}
 
         <MobileCurrency>
           <ToggleCurrency />
@@ -66,7 +71,7 @@ const Page = ({ location }) => {
 
         <DesktopTableHeader pageMode={pageMode} />
 
-        {pageMode === "shoppingItems" && (
+        {currentPage === "/bought" && pageMode === "shoppingItems" && (
           <MobileAddItem onClick={onClickAddItemButton}>
             <button>
               {isAddingShoppingItem ? "Cancel" : "Add Shopping Item"}
