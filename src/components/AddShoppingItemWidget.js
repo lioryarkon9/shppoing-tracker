@@ -14,7 +14,12 @@ import { setBoughtItem } from "../redux/actions/boughtItems.actions";
 
 import { ListItem, ListCell } from "./commonStyled";
 
-const AddShoppingItemWidget = ({ onlineStores, currency, setBoughtItem }) => {
+const AddShoppingItemWidget = ({
+  onlineStores,
+  currency,
+  setBoughtItem,
+  closeWidget,
+}) => {
   const [name, setName] = useState("");
   const [onlineStoreId, setOnlineStoreId] = useState("");
   const [price, setPrice] = useState("");
@@ -28,6 +33,8 @@ const AddShoppingItemWidget = ({ onlineStores, currency, setBoughtItem }) => {
       currencyId: currency.id,
       deliveryEstimationDate,
     });
+
+    closeWidget();
   };
 
   return (

@@ -12,17 +12,25 @@ export const boughtItemsWithProperCurrencySelector = createSelector(
   (boughtItems, { id: appCurrency, rate: exchangeRate }) => {
     const withCurrency = withAppCurrency({ appCurrency, exchangeRate });
 
-    return Object.values(boughtItems).map((boughtItem) => {
-      const { price, currencyId: itemCurrency } = boughtItem;
+    return Object.values(boughtItems).reduce(
+      (boughtItemsWithCurrency, boughtItem) => {
+        const { id, price, currencyId: itemCurrency } = boughtItem;
 
-      return { ...boughtItem, price: withCurrency({ price, itemCurrency }) };
-    });
+        boughtItemsWithCurrency[id] = {
+          ...boughtItem,
+          price: withCurrency({ price, itemCurrency }),
+        };
+
+        return boughtItemsWithCurrency;
+      },
+      {}
+    );
   }
 );
 
 export const onlineStoresSelector = (state) => state.onlineStores;
 
-const receivedItemsIdsSelector = (state) => state.receivedItems;
+export const receivedItemsIdsSelector = (state) => state.receivedItems;
 
 export const receivedItemsSelector = createSelector(
   receivedItemsIdsSelector,
@@ -35,17 +43,20 @@ export const sumOrdersByStoreSelector = createSelector(
   boughtItemsWithProperCurrencySelector,
   onlineStoresSelector,
   (boughtItems, onlineStores) => {
-    const sumOrdersByStores = boughtItems.reduce((sumOrders, boughtItem) => {
-      const { onlineStoreId, price } = boughtItem;
+    const sumOrdersByStores = Object.values(boughtItems).reduce(
+      (sumOrders, boughtItem) => {
+        const { onlineStoreId, price } = boughtItem;
 
-      if (onlineStoreId in sumOrders) {
-        sumOrders[onlineStoreId].sum += price;
-      } else {
-        sumOrders[onlineStoreId] = { sum: price };
-      }
+        if (onlineStoreId in sumOrders) {
+          sumOrders[onlineStoreId].sum += price;
+        } else {
+          sumOrders[onlineStoreId] = { sum: price };
+        }
 
-      return sumOrders;
-    }, {});
+        return sumOrders;
+      },
+      {}
+    );
 
     return Object.values(onlineStores).map(({ id }) => ({
       id,
