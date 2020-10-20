@@ -70,7 +70,7 @@ const List = ({
           <ListCell>{name}</ListCell>
           <ListCell>{onlineStores[onlineStoreId].name}</ListCell>
           <ListCell>{formatPrice(price)}</ListCell>
-          <ListCell>{deliveryEstimationDate}</ListCell>
+          <ListCell>{new Date(deliveryEstimationDate).toDateString()}</ListCell>
         </ListItem>
         <Received>
           <button onClick={() => receivedButtonConfig.action(id)}>
