@@ -20,3 +20,14 @@ export const withAppCurrency = ({ appCurrency, exchangeRate }) => ({
 
   return price * exchangeRate;
 };
+
+export const byDeliveryEstimationDate = (shoppingItemA, shoppingItemB) => {
+  const { deliveryEstimationDate: dateA } = shoppingItemA;
+  const { deliveryEstimationDate: dateB } = shoppingItemB;
+
+  if (new Date(dateA) < new Date(dateB)) {
+    return -1;
+  }
+
+  return 1;
+};

@@ -17,7 +17,7 @@ import {
   removeReceievedItem,
 } from "../redux/actions/receivedItems.actions";
 
-import { withFormatAndCurrencyPrice } from "../utils";
+import { withFormatAndCurrencyPrice, byDeliveryEstimationDate } from "../utils";
 
 import { ListCell, ListItem } from "./commonStyled";
 import AddShoppingItemWidget from "./AddShoppingItemWidget";
@@ -37,7 +37,11 @@ const List = ({
 }) => {
   const { pathname: currentPage } = useLocation();
 
-  const listItemsByType = { boughtItems, receivedItems, sumOrdersByStore };
+  const listItemsByType = {
+    boughtItems: Object.values(boughtItems).sort(byDeliveryEstimationDate),
+    receivedItems: receivedItems.sort(byDeliveryEstimationDate),
+    sumOrdersByStore,
+  };
   const currentListItemsType = getListItemsType({ currentPage, pageMode });
 
   const formatPrice = withFormatAndCurrencyPrice(currency.id);

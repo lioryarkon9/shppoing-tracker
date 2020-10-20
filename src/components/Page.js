@@ -6,7 +6,8 @@ import theme, { SMALL_SCREEN } from "../theme";
 
 import DesktopActionButtons from "./DesktopActionButtons";
 import DesktopTableHeader from "./DesktopTableHeader";
-import ToggleCurrencyButton from "./ToggleCurrencyButton";
+import ToggleCurrency from "./ToggleCurrency";
+import TogglePageMode from "./TogglePageMode";
 import List from "./List";
 
 const Page = ({ location }) => {
@@ -36,27 +37,23 @@ const Page = ({ location }) => {
     <MaxWidthContainer>
       <PageContainer>
         <Title>{currentPage.slice(1).toUpperCase()} SHOPPING ITEMS</Title>
-
         <Link to="/received">received</Link> <Link to="/bought">bought</Link>
-
         <DesktopActionButtons
           onClickAddItemButton={onClickAddItemButton}
           togglePageMode={togglePageMode}
           isAddingShoppingItem={isAddingShoppingItem}
           currentPageMode={pageMode}
         />
-
         <MobileTogglePageMode>
-          <MobilePageModeButton>Shopping Items</MobilePageModeButton>
-          <MobilePageModeButton>Online Stores</MobilePageModeButton>
+          <TogglePageMode
+            toggleAction={togglePageMode}
+            currentPageMode={pageMode}
+          />
         </MobileTogglePageMode>
-
         <MobileCurrency>
-          <ToggleCurrencyButton/>
+          <ToggleCurrency />
         </MobileCurrency>
-
         <DesktopTableHeader pageMode={pageMode} />
-
         <div>
           {pageMode === "shoppingItems" && (
             <MobileAddItem onClick={onClickAddItemButton}>
@@ -92,15 +89,6 @@ const MobileCurrency = styled.div`
   @media ${SMALL_SCREEN} {
     display: flex;
     justify-content: flex-end;
-  }
-`;
-
-const MobilePageModeButton = styled.button`
-  display: none;
-
-  @media ${SMALL_SCREEN} {
-    flex-grow: 1;
-    display: block;
   }
 `;
 

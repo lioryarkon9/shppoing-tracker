@@ -58,12 +58,15 @@ export const sumOrdersByStoreSelector = createSelector(
       {}
     );
 
-    return Object.values(onlineStores).reduce((storesWithSumOrders, onlineStore) => {
-      const {id} = onlineStore;
+    return Object.values(onlineStores).reduce(
+      (storesWithSumOrders, onlineStore) => {
+        const { id } = onlineStore;
 
-      storesWithSumOrders[id] = { id, sumOrders: sumOrdersByStores[id].sum }
+        storesWithSumOrders[id] = { id, sumOrders: sumOrdersByStores[id].sum };
 
-      return storesWithSumOrders;
-    }, {});
+        return storesWithSumOrders;
+      },
+      {}
+    );
   }
 );

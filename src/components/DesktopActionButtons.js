@@ -4,13 +4,14 @@ import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
-import ToggleCurrencyButton from "./ToggleCurrencyButton";
+import ToggleCurrency from "./ToggleCurrency";
+import TogglePageMode from "./TogglePageMode";
 
 const DesktopActionButtons = ({
   togglePageMode,
   currentPageMode,
   onClickAddItemButton,
-  isAddingShoppingItem
+  isAddingShoppingItem,
 }) => {
   const { pathname: currentPage } = useLocation();
 
@@ -22,32 +23,21 @@ const DesktopActionButtons = ({
             {isAddingShoppingItem ? "Cancel" : "Add Item"}
           </button>
         )}
-        <ToggleCurrencyButton/>
+        <ToggleCurrency />
       </BoughtItemAndCurrency>
 
-      <TogglePageMode>
-        <ItemsButton onClick={togglePageMode} currentPageMode={currentPageMode}>
-          Shopping Items
-        </ItemsButton>
-        <StoresButton
-          onClick={togglePageMode}
+      <TogglePageModeContainer>
+        <TogglePageMode
+          toggleAction={togglePageMode}
           currentPageMode={currentPageMode}
-        >
-          Online Stores
-        </StoresButton>
-      </TogglePageMode>
+        />
+      </TogglePageModeContainer>
     </Container>
   );
 };
 
-const ItemsButton = styled.button`
-  background-color: ${({ currentPageMode }) =>
-    currentPageMode === "shoppingItems" ? "green" : "transparent"};
-`;
-
-const StoresButton = styled.button`
-  background-color: ${({ currentPageMode }) =>
-    currentPageMode === "onlineStores" ? "green" : "transparent"};
+const TogglePageModeContainer = styled.div`
+  width: 200px;
 `;
 
 const Container = styled.div`
@@ -57,10 +47,6 @@ const Container = styled.div`
   @media ${SMALL_SCREEN} {
     display: none;
   }
-`;
-
-const TogglePageMode = styled.div`
-  display: flex;
 `;
 
 const BoughtItemAndCurrency = styled.div`
