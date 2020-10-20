@@ -12,7 +12,7 @@ import {
 
 import { withFormatAndCurrencyPrice, byDeliveryEstimationDate } from "../utils";
 
-import { ListCell, ListItem } from "./commonStyled";
+import { ListCell, ListItem, ListItemContainer } from "./commonStyled";
 import AddShoppingItemWidget from "./AddShoppingItemWidget";
 import ShoppingItem from "./ShoppingItem";
 
@@ -38,16 +38,20 @@ const List = ({
   const formatPrice = withFormatAndCurrencyPrice(currency.id);
 
   const renderOnlineStore = ({ id, sumOrders }) => (
-    <ListItem key={id}>
-      <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
-      <ListCell pageMode="onlineStores">{formatPrice(sumOrders)}</ListCell>
-    </ListItem>
+    <ListItemContainer key={id}>
+      <ListItem>
+        <ListCell pageMode="onlineStores">{onlineStores[id].name}</ListCell>
+        <ListCell pageMode="onlineStores">{formatPrice(sumOrders)}</ListCell>
+      </ListItem>
+    </ListItemContainer>
   );
 
   return (
     <div>
       {isAddingShoppingItem && (
-        <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
+        <ListItemContainer>
+          <AddShoppingItemWidget closeWidget={closeAddShoppingItemWidget} />
+        </ListItemContainer>
       )}
 
       {Object.values(listItemsByType[currentListItemsType]).map(

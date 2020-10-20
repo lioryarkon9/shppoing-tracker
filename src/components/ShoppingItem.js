@@ -15,7 +15,7 @@ import {
   addReceivedItem,
 } from "../redux/actions/receivedItems.actions";
 
-import { ListItem, ListCell } from "./commonStyled";
+import { ListItem, ListCell, ListItemContainer } from "./commonStyled";
 
 const ShoppingItem = ({
   id,
@@ -44,7 +44,7 @@ const ShoppingItem = ({
   };
 
   return (
-    <div>
+    <ListItemContainer>
       <ListItem>
         <ListCell>{name}</ListCell>
         <ListCell>{onlineStores[onlineStoreId].name}</ListCell>
@@ -57,7 +57,7 @@ const ShoppingItem = ({
           {receivedButtonConfig.label}
         </button>
       </Received>
-    </div>
+    </ListItemContainer>
   );
 };
 
