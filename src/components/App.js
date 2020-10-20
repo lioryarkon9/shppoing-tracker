@@ -12,8 +12,6 @@ import store from "../redux/store";
 import UpdateCurrencyRate from "./UpdateCurrencyRate";
 import Page from "./Page";
 
-window.getState = store.getState;
-
 const App = () => (
   <Provider store={store}>
     <UpdateCurrencyRate />
