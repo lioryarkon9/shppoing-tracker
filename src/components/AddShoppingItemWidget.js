@@ -12,7 +12,7 @@ import { SMALL_SCREEN } from "../theme";
 import { onlineStoresSelector, currencySelector } from "../redux/selectors";
 import { setBoughtItem } from "../redux/actions/boughtItems.actions";
 
-import { ListItem, ListCell } from "./commonStyled";
+import { ShoppingListItem, ShoppingListCell } from "./commonStyled";
 
 const AddShoppingItemWidget = ({
   onlineStores,
@@ -30,7 +30,12 @@ const AddShoppingItemWidget = ({
   const confirmShoppingItem = () => {
     setValidationMessage("");
 
-    const shoppingItemValidationMessage = validateShoppingItem({name, onlineStoreId, price, deliveryEstimationDate})
+    const shoppingItemValidationMessage = validateShoppingItem({
+      name,
+      onlineStoreId,
+      price,
+      deliveryEstimationDate,
+    });
 
     if (shoppingItemValidationMessage) {
       setValidationMessage(shoppingItemValidationMessage);
@@ -51,15 +56,15 @@ const AddShoppingItemWidget = ({
 
   return (
     <>
-      <ListItem>
-        <ListCell>
+      <ShoppingListItem>
+        <ShoppingListCell>
           <input
             value={name}
             onChange={(event) => setName(event.currentTarget.value)}
             placeholder="New Item Name"
           />
-        </ListCell>
-        <ListCell>
+        </ShoppingListCell>
+        <ShoppingListCell>
           <Dropdown
             value={onlineStoreId}
             options={Object.values(onlineStores).map(({ id, name }) => ({
@@ -69,8 +74,8 @@ const AddShoppingItemWidget = ({
             onChange={({ value }) => setOnlineStoreId(value)}
             placeholder="Store bought from"
           />
-        </ListCell>
-        <ListCell>
+        </ShoppingListCell>
+        <ShoppingListCell>
           <input
             type="number"
             value={price}
@@ -79,8 +84,8 @@ const AddShoppingItemWidget = ({
               currency.id === "ils" ? "NIS" : "USD"
             }`}
           />
-        </ListCell>
-        <ListCell>
+        </ShoppingListCell>
+        <ShoppingListCell>
           <DatePicker
             placeholderText="Due to arrive on"
             value={deliveryEstimationDate}
@@ -94,10 +99,12 @@ const AddShoppingItemWidget = ({
             }
             minDate={new Date()}
           />
-        </ListCell>
-      </ListItem>
+        </ShoppingListCell>
+      </ShoppingListItem>
 
-      <ValidationMessage>{validationMessage}</ValidationMessage>
+      {validationMessage && (
+        <ValidationMessage>{validationMessage}</ValidationMessage>
+      )}
 
       <Confirm>
         <button onClick={confirmShoppingItem}>Confirm</button>
@@ -120,9 +127,14 @@ const Confirm = styled.div`
   }
 `;
 
-const validateShoppingItem = ({name, onlineStoreId, price, deliveryEstimationDate}) => {
+const validateShoppingItem = ({
+  name,
+  onlineStoreId,
+  price,
+  deliveryEstimationDate,
+}) => {
   if (name.length < 3 || name.length > 20) {
-    return "Name must be between 3 to 20 chars"
+    return "Name must be between 3 to 20 chars";
   }
 
   if (!onlineStoreId) {

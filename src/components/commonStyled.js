@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import theme, { SMALL_SCREEN } from "../theme";
 
-export const ListCell = styled.div`
+export const ShoppingListCell = styled.div`
   width: ${({ pageMode }) => (pageMode === "onlineStores" ? "50%" : "25%")};
 
   @media ${SMALL_SCREEN} {
@@ -10,7 +10,7 @@ export const ListCell = styled.div`
   }
 `;
 
-export const ListItem = styled.div`
+export const ShoppingListItem = styled.div`
   display: flex;
 
   @media ${SMALL_SCREEN} {

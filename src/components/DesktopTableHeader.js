@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { SMALL_SCREEN } from "../theme";
 
-import { ListCell } from "./commonStyled";
+import { ShoppingListCell } from "./commonStyled";
 
 const headerCellsByMode = {
   shoppingItems: ["Name", "Online Store", "Price", "Delivery Estimation Date"],
@@ -14,9 +14,9 @@ const DesktopTableHeader = ({ pageMode }) => {
   return (
     <Container>
       {headerCellsByMode[pageMode].map((headerItem) => (
-        <ListCell pageMode={pageMode} key={headerItem}>
+        <ShoppingListCell pageMode={pageMode} key={headerItem}>
           {headerItem}
-        </ListCell>
+        </ShoppingListCell>
       ))}
     </Container>
   );
