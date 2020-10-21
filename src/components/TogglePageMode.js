@@ -23,6 +23,8 @@ const ToggleButton = styled.button`
   padding: 5px;
   width: 50%;
   font-weight: bold;
+  background-color: #dfe1e6;
+  border-radius: 5px;
 `;
 
 const ShoppingItemsButton = styled(ToggleButton)`
@@ -39,7 +41,7 @@ const Container = styled.div`
 `;
 
 const getCurrentPageModeStyle = () => css`
-  background-color: green;
+  background-color: #61bd4f;
   color: #fff;
 `;
 

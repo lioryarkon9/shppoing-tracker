@@ -130,6 +130,10 @@ const Title = styled.div`
 const MaxWidthContainer = styled.div`
   display: flex;
   justify-content: center;
+
+  @media ${SMALL_SCREEN} {
+    min-height: 100vh;
+  }
 `;
 
 const PageContainer = styled.div`
@@ -144,7 +148,7 @@ const PageContainer = styled.div`
   @media ${SMALL_SCREEN} {
     margin-top: 0;
     border-radius: 0;
-    min-height: 100vh;
+    min-height: 100%;
   }
 `;
 
