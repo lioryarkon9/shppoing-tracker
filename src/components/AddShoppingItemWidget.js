@@ -46,7 +46,7 @@ const AddShoppingItemWidget = ({
     setBoughtItem({
       name,
       onlineStoreId,
-      price,
+      price: parseFloat(price),
       currencyId: currency.id,
       deliveryEstimationDate,
     });

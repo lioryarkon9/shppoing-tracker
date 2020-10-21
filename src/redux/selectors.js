@@ -41,32 +41,16 @@ export const receivedItemsSelector = createSelector(
 
 export const sumOrdersByStoreSelector = createSelector(
   boughtItemsWithProperCurrencySelector,
-  onlineStoresSelector,
-  (boughtItems, onlineStores) => {
-    const sumOrdersByStores = Object.values(boughtItems).reduce(
-      (sumOrders, boughtItem) => {
-        const { onlineStoreId, price } = boughtItem;
+  (boughtItems) =>
+    Object.values(boughtItems).reduce((sumOrders, boughtItem) => {
+      const { onlineStoreId, price } = boughtItem;
 
-        if (onlineStoreId in sumOrders) {
-          sumOrders[onlineStoreId].sum += price;
-        } else {
-          sumOrders[onlineStoreId] = { sum: price };
-        }
+      if (onlineStoreId in sumOrders) {
+        sumOrders[onlineStoreId].sumOrders += price;
+      } else {
+        sumOrders[onlineStoreId] = { id: onlineStoreId, sumOrders: price };
+      }
 
-        return sumOrders;
-      },
-      {}
-    );
-
-    return Object.values(onlineStores).reduce(
-      (storesWithSumOrders, onlineStore) => {
-        const { id } = onlineStore;
-
-        storesWithSumOrders[id] = { id, sumOrders: sumOrdersByStores[id].sum };
-
-        return storesWithSumOrders;
-      },
-      {}
-    );
-  }
+      return sumOrders;
+    }, {})
 );
