@@ -151,6 +151,7 @@ const PageContainer = styled.div`
   margin-top: 10px;
   border-radius: ${theme.borderRadius};
   color: ${theme.colors.text};
+  box-shadow: 0 0 2px 0;
 
   @media ${SMALL_SCREEN} {
     margin-top: 0;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { currencySelector } from "../redux/selectors";
 import { setCurrencyId } from "../redux/actions/currency.actions";
 
-import {Button} from "./commonStyled";
+import { Button } from "./commonStyled";
 
 const ToggleCurrencyButton = ({ currency, setCurrencyId }) => {
   const { id: currenctCurrency } = currency;

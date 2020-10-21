@@ -53,15 +53,15 @@ const AddShoppingItemWidget = ({
 
     closeWidget();
   };
-  
-  const confirmOnPressEnter = getOnEnterKeyConfirmation(confirmShoppingItem)
 
-  useEffect(function applyOnEnterConfirmation () {
+  const confirmOnPressEnter = getOnEnterKeyConfirmation(confirmShoppingItem);
+
+  useEffect(function applyOnEnterConfirmation() {
     document.addEventListener("keypress", confirmOnPressEnter);
 
     return () => {
       document.removeEventListener("keypress", confirmOnPressEnter);
-    }
+    };
   }, []);
 
   return (
@@ -98,7 +98,11 @@ const AddShoppingItemWidget = ({
         <ListCell>
           <DatePicker
             placeholderText="Due to arrive on"
-            value={deliveryEstimationDate ? new Date(deliveryEstimationDate).toDateString() : ""}
+            value={
+              deliveryEstimationDate
+                ? new Date(deliveryEstimationDate).toDateString()
+                : ""
+            }
             selected={
               deliveryEstimationDate
                 ? new Date(deliveryEstimationDate)
@@ -117,11 +121,7 @@ const AddShoppingItemWidget = ({
       )}
 
       <Confirm>
-        <ConfirmButton 
-          onClick={confirmShoppingItem}
-        >
-          Confirm
-        </ConfirmButton>
+        <ConfirmButton onClick={confirmShoppingItem}>Confirm</ConfirmButton>
       </Confirm>
     </div>
   );
@@ -182,7 +182,7 @@ const validateShoppingItem = ({
   return "";
 };
 
-const getOnEnterKeyConfirmation = confirmItemCallback => event => {
+const getOnEnterKeyConfirmation = (confirmItemCallback) => (event) => {
   if (event.key !== "Enter") {
     return;
   }

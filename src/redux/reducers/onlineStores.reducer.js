@@ -13,12 +13,12 @@ const initialState = {
   },
   "986207ec-3f46-4593-8b74-a6af1f003e57": {
     id: "986207ec-3f46-4593-8b74-a6af1f003e57",
-    name: "Amazon"
+    name: "Amazon",
   },
   "680734b9-d376-43f7-b036-b5123da5342d": {
     id: "680734b9-d376-43f7-b036-b5123da5342d",
-    name: "ebay"
-  }
+    name: "ebay",
+  },
 };
 
 function onlineStoresReducer(state = initialState, action) {

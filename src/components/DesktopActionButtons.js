@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
-import {Button} from "./commonStyled";
+import { Button } from "./commonStyled";
 import ToggleCurrency from "./ToggleCurrency";
 import TogglePageMode from "./TogglePageMode";
 
@@ -41,7 +41,7 @@ const DesktopActionButtons = ({
 
 const AddButton = styled(Button)`
   width: 100px;
-`; 
+`;
 
 const TogglePageModeContainer = styled.div`
   width: 240px;

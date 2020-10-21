@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 import theme from "../theme";
 
-import {Button} from "./commonStyled";
+import { Button } from "./commonStyled";
 
 const TogglePageMode = ({ toggleAction, currentPageMode }) => (
   <Container>

@@ -1,7 +1,7 @@
 const theme = {
   colors: {
     text: "#172b4d",
-    green: "#61bd4f"
+    green: "#61bd4f",
   },
   borderRadius: "5px",
 };
