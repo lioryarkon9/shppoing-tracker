@@ -15,7 +15,7 @@ import {
   addReceivedItem,
 } from "../redux/actions/receivedItems.actions";
 
-import { ListItem, ListCell, ListItemContainer } from "./commonStyled";
+import { Button, ListItem, ListCell, ListItemContainer } from "./commonStyled";
 
 const ShoppingItem = ({
   id,
@@ -55,14 +55,20 @@ const ShoppingItem = ({
 
       {pageMode === "shoppingItems" && (
         <Received>
-          <button onClick={() => receivedButtonConfig.action(id)}>
+          <ReceiveButton onClick={() => receivedButtonConfig.action(id)}>
             {receivedButtonConfig.label}
-          </button>
+          </ReceiveButton>
         </Received>
       )}
     </ListItemContainer>
   );
 };
+
+const ReceiveButton = styled(Button)`
+  &:hover {
+    background-color: #bdbfc3;
+  }
+`;
 
 const Received = styled.div`
   display: flex;

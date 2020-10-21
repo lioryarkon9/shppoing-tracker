@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 
 import { SMALL_SCREEN } from "../theme";
 
+import {Button} from "./commonStyled";
 import ToggleCurrency from "./ToggleCurrency";
 import TogglePageMode from "./TogglePageMode";
 
@@ -19,9 +20,9 @@ const DesktopActionButtons = ({
     <Container>
       <BoughtItemAndCurrency>
         {currentPage === "/bought" && currentPageMode === "shoppingItems" && (
-          <button onClick={onClickAddItemButton}>
+          <AddButton onClick={onClickAddItemButton}>
             {isAddingShoppingItem ? "Cancel" : "Add Item"}
-          </button>
+          </AddButton>
         )}
         <ToggleCurrency />
       </BoughtItemAndCurrency>
@@ -38,8 +39,12 @@ const DesktopActionButtons = ({
   );
 };
 
+const AddButton = styled(Button)`
+  width: 100px;
+`; 
+
 const TogglePageModeContainer = styled.div`
-  width: 200px;
+  width: 240px;
 `;
 
 const Container = styled.div`

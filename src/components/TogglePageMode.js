@@ -1,6 +1,10 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import theme from "../theme";
+
+import {Button} from "./commonStyled";
+
 const TogglePageMode = ({ toggleAction, currentPageMode }) => (
   <Container>
     <ShoppingItemsButton
@@ -19,12 +23,8 @@ const TogglePageMode = ({ toggleAction, currentPageMode }) => (
   </Container>
 );
 
-const ToggleButton = styled.button`
-  padding: 5px;
+const ToggleButton = styled(Button)`
   width: 50%;
-  font-weight: bold;
-  background-color: #dfe1e6;
-  border-radius: 5px;
 `;
 
 const ShoppingItemsButton = styled(ToggleButton)`
@@ -41,8 +41,12 @@ const Container = styled.div`
 `;
 
 const getCurrentPageModeStyle = () => css`
-  background-color: #61bd4f;
+  background-color: ${theme.colors.green};
   color: #fff;
+
+  &:hover {
+    background-color: ${theme.colors.green};
+  }
 `;
 
 export default TogglePageMode;

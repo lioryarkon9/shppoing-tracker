@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import theme, { SMALL_SCREEN } from "../theme";
 
+import { Button } from "./commonStyled";
 import DesktopActionButtons from "./DesktopActionButtons";
 import DesktopTableHeader from "./DesktopTableHeader";
 import ToggleCurrency from "./ToggleCurrency";
@@ -72,10 +73,10 @@ const Page = ({ location }) => {
         <DesktopTableHeader pageMode={pageMode} />
 
         {currentPage === "/bought" && pageMode === "shoppingItems" && (
-          <MobileAddItem onClick={onClickAddItemButton}>
-            <button>
+          <MobileAddItem>
+            <MobileAddButton onClick={onClickAddItemButton}>
               {isAddingShoppingItem ? "Cancel" : "Add Shopping Item"}
-            </button>
+            </MobileAddButton>
           </MobileAddItem>
         )}
 
@@ -89,6 +90,10 @@ const Page = ({ location }) => {
   );
 };
 
+const MobileAddButton = styled(Button)`
+  width: 200px;
+`;
+
 const Navigation = styled.div`
   text-align: center;
   padding: 5px 5px 10px;
@@ -100,6 +105,7 @@ const MobileAddItem = styled.div`
   @media ${SMALL_SCREEN} {
     display: flex;
     justify-content: center;
+    margin-top: 5px;
   }
 `;
 
@@ -109,6 +115,7 @@ const MobileCurrency = styled.div`
   @media ${SMALL_SCREEN} {
     display: flex;
     justify-content: flex-end;
+    margin-top: 5px;
   }
 `;
 

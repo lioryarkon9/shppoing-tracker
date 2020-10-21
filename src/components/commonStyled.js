@@ -27,3 +27,18 @@ export const ListItem = styled.div`
     flex-wrap: wrap;
   }
 `;
+
+export const Button = styled.button`
+  padding: 5px;
+  font-weight: bold;
+  background-color: #dfe1e6;
+  border-radius: 5px;
+
+  @media ${SMALL_SCREEN} {
+    padding: 10px 5px;
+  }
+
+  &:hover {
+    background-color: #bdbfc3;
+  }
+`;

@@ -7,12 +7,12 @@ import styled from "styled-components";
 import "react-dropdown/style.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-import { SMALL_SCREEN } from "../theme";
+import theme, { SMALL_SCREEN } from "../theme";
 
 import { onlineStoresSelector, currencySelector } from "../redux/selectors";
 import { setBoughtItem } from "../redux/actions/boughtItems.actions";
 
-import { ListItem, ListCell } from "./commonStyled";
+import { ListItem, ListCell, Button } from "./commonStyled";
 
 const AddShoppingItemWidget = ({
   onlineStores,
@@ -107,11 +107,27 @@ const AddShoppingItemWidget = ({
       )}
 
       <Confirm>
-        <button onClick={confirmShoppingItem}>Confirm</button>
+        <ConfirmButton onClick={confirmShoppingItem}>Confirm</ConfirmButton>
       </Confirm>
     </div>
   );
 };
+
+const ConfirmButton = styled(Button)`
+  background-color: ${theme.colors.green};
+  color: #fff;
+  width: 200px;
+  font-size: 16px;
+
+  @media ${SMALL_SCREEN} {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  &:hover {
+    background-color: ${theme.colors.green};
+  }
+`;
 
 const ValidationMessage = styled.div`
   color: red;

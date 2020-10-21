@@ -1,8 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import styled from "styled-components";
 
 import { currencySelector } from "../redux/selectors";
 import { setCurrencyId } from "../redux/actions/currency.actions";
+
+import {Button} from "./commonStyled";
 
 const ToggleCurrencyButton = ({ currency, setCurrencyId }) => {
   const { id: currenctCurrency } = currency;
@@ -18,11 +21,15 @@ const ToggleCurrencyButton = ({ currency, setCurrencyId }) => {
   };
 
   return (
-    <button onClick={toggleCurrency}>
+    <ToggleButton onClick={toggleCurrency}>
       {currenctCurrency === "usd" ? "NIS" : "USD"}
-    </button>
+    </ToggleButton>
   );
 };
+
+const ToggleButton = styled(Button)`
+  width: 100px;
+`;
 
 const mapStateToProps = (state) => ({
   currency: currencySelector(state),
