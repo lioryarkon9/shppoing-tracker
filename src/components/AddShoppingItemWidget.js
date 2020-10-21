@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "react-dropdown";
 import { connect } from "react-redux";
 import DatePicker from "react-datepicker";
@@ -53,6 +53,16 @@ const AddShoppingItemWidget = ({
 
     closeWidget();
   };
+  
+  const confirmOnPressEnter = getOnEnterKeyConfirmation(confirmShoppingItem)
+
+  useEffect(function applyOnEnterConfirmation () {
+    document.addEventListener("keypress", confirmOnPressEnter);
+
+    return () => {
+      document.removeEventListener("keypress", confirmOnPressEnter);
+    }
+  }, []);
 
   return (
     <div>
@@ -107,7 +117,11 @@ const AddShoppingItemWidget = ({
       )}
 
       <Confirm>
-        <ConfirmButton onClick={confirmShoppingItem}>Confirm</ConfirmButton>
+        <ConfirmButton 
+          onClick={confirmShoppingItem}
+        >
+          Confirm
+        </ConfirmButton>
       </Confirm>
     </div>
   );
@@ -149,8 +163,8 @@ const validateShoppingItem = ({
   price,
   deliveryEstimationDate,
 }) => {
-  if (name.length < 3 || name.length > 20) {
-    return "Name must be between 3 to 20 chars";
+  if (name.length < 3 || name.length > 30) {
+    return "Name must be between 3 to 30 chars";
   }
 
   if (!onlineStoreId) {
@@ -166,6 +180,14 @@ const validateShoppingItem = ({
   }
 
   return "";
+};
+
+const getOnEnterKeyConfirmation = confirmItemCallback => event => {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  confirmItemCallback();
 };
 
 const mapStateToProps = (state) => ({
