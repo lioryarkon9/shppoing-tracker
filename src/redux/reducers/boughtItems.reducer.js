@@ -1,11 +1,10 @@
 import generateGuid from "uuid-random";
 
-import { mockBoughtItems } from "../mocks/boughtItems.mocks";
 import { SET_BOUGHT_ITEM } from "../actions/boughtItems.actions";
 
-//const initialState = {};
+const initialState = {};
 
-function boughtItemsReducer(state = mockBoughtItems, action) {
+function boughtItemsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_BOUGHT_ITEM: {
       const { id: payloadId } = action.payload;
