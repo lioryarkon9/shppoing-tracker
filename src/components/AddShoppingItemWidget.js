@@ -88,7 +88,7 @@ const AddShoppingItemWidget = ({
         <ListCell>
           <DatePicker
             placeholderText="Due to arrive on"
-            value={deliveryEstimationDate}
+            value={deliveryEstimationDate ? new Date(deliveryEstimationDate).toDateString() : ""}
             selected={
               deliveryEstimationDate
                 ? new Date(deliveryEstimationDate)
